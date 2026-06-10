@@ -18,3 +18,5 @@ python main.py input/meeting.mp3
 
 - `output/meeting.txt`
 - `output/meeting.srt`
+
+내용 수정
