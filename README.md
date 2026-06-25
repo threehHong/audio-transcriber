@@ -77,6 +77,35 @@ ffmpeg -version
 `ffmpeg` 명령이 인식되지 않더라도 현재 환경이나 입력 파일에 따라 프로그램이 동작할 수 있습니다.
 다만 실행 중 디코딩 오류가 발생하면 `ffmpeg` 설치 및 PATH 설정을 확인하세요.
 
+### 3. NVIDIA GPU 사용 전 준비 (선택)
+
+아래 설정으로 GPU 실행을 하려면:
+
+```python
+DEVICE = "cuda"
+COMPUTE_TYPE = "float16"
+```
+
+CUDA 사용 가능한 NVIDIA GPU가 있어야 하고, Windows 기준으로는 보통 CUDA Toolkit 12가 설치되어 있어야 합니다.
+
+설치 후에는 아래 항목도 함께 확인하세요.
+
+- `nvidia-smi` 명령이 정상 동작하는지 확인
+- `nvcc --version` 명령으로 CUDA Toolkit 12 설치 여부 확인
+- 환경변수 `CUDA_PATH` 또는 `CUDA_HOME`이 CUDA 12 설치 경로를 가리키는지 확인
+- `PATH`에 CUDA의 `bin` 경로가 포함되어 있는지 확인
+
+예시:
+
+```text
+CUDA_PATH=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.0
+CUDA_HOME=C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v12.0
+PATH=%CUDA_PATH%\bin
+```
+
+이미 PATH에 등록되어 있다면 별도 설정은 필요하지 않을 수 있습니다.
+반대로 GPU가 있어도 CUDA Toolkit 또는 환경변수가 제대로 잡혀 있지 않으면 `DEVICE = "cuda"`로 변경해도 실행 중 CUDA 관련 오류가 발생할 수 있습니다.
+
 ## 실행 방법
 
 1. 변환할 음성 파일을 `input/` 폴더에 넣습니다.
@@ -261,6 +290,10 @@ LANGUAGE = "ko"
 DEVICE = "cuda"
 COMPUTE_TYPE = "float16"
 ```
+
+이 설정은 CUDA 사용 환경이 먼저 준비되어 있어야 정상 동작합니다.
+Windows에서는 보통 CUDA Toolkit 12 설치와 `CUDA_PATH`/`CUDA_HOME`, `PATH` 설정 확인이 필요합니다.
+자세한 내용은 위의 `환경 준비 > 3. NVIDIA GPU 사용 전 준비 (선택)`을 참고하세요.
 
 추천 상황:
 
